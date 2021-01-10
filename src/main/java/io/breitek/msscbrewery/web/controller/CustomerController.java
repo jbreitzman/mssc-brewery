@@ -25,12 +25,13 @@ public class CustomerController {
         return new ResponseEntity<>(customerService.getCustomerById(customerId), HttpStatus.OK);
     }
 
+    @PostMapping // POST - Create new customer
     public ResponseEntity handlePost(@RequestBody CustomerDto customerDto) {
         CustomerDto savedDto = customerService.saveNewCustomer(customerDto);
 
         HttpHeaders headers = new HttpHeaders();
         //TODO: Add hostname to url.
-        headers.add("Location", "/api/v1/customer" + savedDto.getId().toString());
+        headers.add("Location", "/api/v1/customer/" + savedDto.getId().toString());
 
         return new ResponseEntity(headers, HttpStatus.CREATED);
     }
